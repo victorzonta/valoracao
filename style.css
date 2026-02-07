@@ -1,0 +1,42 @@
+/* Centraliza os títulos h1, h2 e h3 */
+h1, h2, h3 {
+    text-align: center;
+}
+
+/* Define o estilo do corpo da página */
+body {
+    background-color: #f0f2f6; /* Define a cor de fundo */
+    display: flex; /* Define o modelo de caixa flexível */
+    flex-direction: column; /* Organiza os itens em uma coluna */
+    justify-content: center; /* Centraliza os itens verticalmente */
+    align-items: center; /* Centraliza os itens horizontalmente */
+    height: 100vh; /* Garante que o conteúdo seja centralizado verticalmente na tela */
+}
+
+/* Centraliza o conteúdo dentro dos blocos de código */
+.stCodeBlock code {
+    display: block; /* Faz com que o elemento ocupe toda a largura disponível */
+    text-align: center; /* Centraliza o texto */
+    white-space: pre-wrap; /* Permite que o texto seja quebrado em várias linhas, se necessário */
+}
+
+/* Estilo para tabelas de clima */
+.weather-table {
+    font-family: Arial, sans-serif; /* Define a fonte */
+    border-collapse: collapse; /* Colapsa as bordas das células adjacentes */
+    width: 100%; /* Define a largura da tabela para 100% */
+    margin-top: 10px; /* Adiciona margem acima da tabela */
+}
+
+/* Estilo para células e cabeçalhos da tabela */
+.weather-table th, .weather-table td {
+    border: 1px solid #dddddd; /* Define a cor e o estilo da borda */
+    text-align: left; /* Alinha o texto à esquerda */
+    padding: 8px; /* Adiciona preenchimento interno */
+}
+
+/* Estilo para cabeçalhos da tabela */
+.weather-table th {
+    background-color: #f2f2f2; /* Define a cor de fundo */
+    color: #333333; /* Define a cor do texto */
+}
