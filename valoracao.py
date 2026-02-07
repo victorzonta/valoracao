@@ -26,7 +26,7 @@ st.title ('Valoração STI')
 # As opções influenciam os campos exibidos e cálculos realizados
 # Apenas para 'Cross-Sell' os campos são exibidos e cálculos feitos
 
-tipo = st.sidebar.selectbox(options= ['Cross-Sell','Embedded','Orgânico'],label='Opções')
+tipo = st.sidebar.selectbox(options= ['Cross-Sell'],label='Opções')
 periodicidade = st.sidebar.selectbox(options= ['Não','Sim'], label='Tem Periodicidade?')
 if tipo == "Cross-Sell":
     # Entrada de dados pelo usuário
