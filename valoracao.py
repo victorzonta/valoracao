@@ -26,9 +26,10 @@ st.title ('Valoração STI')
 # As opções influenciam os campos exibidos e cálculos realizados
 # Apenas para 'Cross-Sell' os campos são exibidos e cálculos feitos
 
-tipo = st.sidebar.selectbox(options= ['Cross-Sell'],label='Opções')
-periodicidade = st.sidebar.selectbox(options= ['Não','Sim'], label='Tem Periodicidade?')
+tipo = st.sidebar.selectbox(options= ['Cross-Sell', 'Orgânico'],label='Opções')
+
 if tipo == "Cross-Sell":
+    periodicidade = st.sidebar.selectbox(options= ['Sim','Não'], label='Tem Periodicidade?')
     # Entrada de dados pelo usuário
     acessos = st.text_input(
         "Quantidade de acessos únicos por mês",
@@ -55,13 +56,13 @@ if tipo == "Cross-Sell":
     atratividade = st.text_input(
         "Qual a atratividade prevista pra jornada",
         value="",
-        placeholder="00%",
+        placeholder="00,00%",
         label_visibility="visible",
     )
     conversao = st.text_input(
         "Qual a conversão prevista pra jornada",
         value="",
-        placeholder="00%",
+        placeholder="00,00%",
         label_visibility="visible",
     )
 
