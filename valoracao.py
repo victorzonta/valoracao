@@ -33,6 +33,7 @@ tipo = st.sidebar.selectbox(options= ['','Cross-Sell', 'Orgânico', 'Embedded'],
 
 if tipo == "Cross-Sell":
     periodicidade = st.sidebar.selectbox(options= ['Sim','Não'], label='Tem Periodicidade?')
+    tipo_ticket = st.sidebar.selectbox(options= ['Menor Ticket','Medio Ticket', 'Maior Ticket', 'Randomico'],label='Opções')
     p1, p2, p3 = preencher_tres_percentuais()
     # Entrada de dados pelo usuário
     acessos = st.text_input(
@@ -99,12 +100,12 @@ if tipo == "Cross-Sell":
     col1.code("Clientes Elegíveis: " + topo)
     col2.code("Topo de Funil: " + topo_funil)
     col3.code("Contratações: " + topo_funil_conv)
-    col4.code("Premio de Venda: R$" + int_para_moeda(calcular_premio_venda(topo_funil_conv_val,p1, p2, p3, 4)))
+    col4.code("Premio de Venda: R$" + int_para_moeda(calcular_premio_venda(topo_funil_conv_val,p1, p2, p3, 4, tipo_ticket)))
     col1,col2,col3,col4 = st.columns(4)
-    col1.code("Premio de Venda IA: R$" + int_para_moeda(round(calcular_premio_venda(topo_funil_conv_val,p1, p2, p3, 1))))
-    col2.code("Premio de Venda IU: R$" + int_para_moeda(round(calcular_premio_venda(topo_funil_conv_val,p1, p2, p3, 2))))
-    col3.code("Premio de Venda IP: R$" + int_para_moeda(round(calcular_premio_venda(topo_funil_conv_val,p1, p2, p3, 3))))
-    col4.code("Premio de Venda 1 ano: R$" + int_para_moeda(calcular_premio_venda(topo_funil_conv_val,p1, p2, p3, 4)*12))
+    col1.code("Premio de Venda IA: R$" + int_para_moeda(round(calcular_premio_venda(topo_funil_conv_val,p1, p2, p3, 1, tipo_ticket))))
+    col2.code("Premio de Venda IU: R$" + int_para_moeda(round(calcular_premio_venda(topo_funil_conv_val,p1, p2, p3, 2, tipo_ticket))))
+    col3.code("Premio de Venda IP: R$" + int_para_moeda(round(calcular_premio_venda(topo_funil_conv_val,p1, p2, p3, 3, tipo_ticket))))
+    col4.code("Premio de Venda 1 ano: R$" + int_para_moeda(calcular_premio_venda(topo_funil_conv_val,p1, p2, p3, 4, tipo_ticket)*12))
 
     df = gerar_tabela_resultados_cross_sell(
         numero,
@@ -115,7 +116,8 @@ if tipo == "Cross-Sell":
         p1, p2, p3,
         moeda_para_int(topo),
         moeda_para_int(topo_funil),
-        moeda_para_int(topo_funil_conv)
+        moeda_para_int(topo_funil_conv),
+        tipo_ticket
     )
 
     csv = df.to_csv(index=False).encode("utf-8")
@@ -127,6 +129,7 @@ if tipo == "Cross-Sell":
         mime="text/csv"
     )
 if tipo == "Orgânico":
+    tipo_ticket = st.sidebar.selectbox(options= ['Menor Ticket','Medio Ticket', 'Maior Ticket', 'Randomico'],label='Opções')
     p1, p2, p3 = preencher_tres_percentuais()
     acessos_organicos = st.text_input(
         "Topo de funil por mês",
@@ -149,13 +152,14 @@ if tipo == "Orgânico":
     #st.code("Premio de Venda: R$" + int_para_moeda(calcular_premio_venda(efetivacoes_mes,p1, p2, p3)))
     col1, col2, col3 = st.columns(3)
     col1.code(f"Efetivações por mês: {efetivacoes_mes_fmt}")
-    col2.code("Premio de Venda: R$" + int_para_moeda(calcular_premio_venda(efetivacoes_mes,p1, p2, p3, 4)))
-    col3.code("Premio de Venda 1 ano: R$" + int_para_moeda(calcular_premio_venda(efetivacoes_mes,p1, p2, p3, 4)*12))
+    col2.code("Premio de Venda: R$" + int_para_moeda(calcular_premio_venda(efetivacoes_mes,p1, p2, p3, 4,tipo_ticket)))
+    col3.code("Premio de Venda 1 ano: R$" + int_para_moeda(calcular_premio_venda(efetivacoes_mes,p1, p2, p3, 4,tipo_ticket)*12))
     col1, col2, col3 = st.columns(3)
-    col1.code("Premio de Venda IA: R$" + int_para_moeda(round(calcular_premio_venda(efetivacoes_mes,p1, p2, p3, 1))))
-    col2.code("Premio de Venda IU: R$" + int_para_moeda(round(calcular_premio_venda(efetivacoes_mes,p1, p2, p3, 2))))
-    col3.code("Premio de Venda IP: R$" + int_para_moeda(round(calcular_premio_venda(efetivacoes_mes,p1, p2, p3, 3))))
+    col1.code("Premio de Venda IA: R$" + int_para_moeda(round(calcular_premio_venda(efetivacoes_mes,p1, p2, p3, 1,tipo_ticket))))
+    col2.code("Premio de Venda IU: R$" + int_para_moeda(round(calcular_premio_venda(efetivacoes_mes,p1, p2, p3, 2,tipo_ticket))))
+    col3.code("Premio de Venda IP: R$" + int_para_moeda(round(calcular_premio_venda(efetivacoes_mes,p1, p2, p3, 3,tipo_ticket))))
 if tipo == "Embedded":
+    tipo_ticket = st.sidebar.selectbox(options= ['Menor Ticket','Medio Ticket', 'Maior Ticket', 'Randomico'],label='Opções')
     total_usuarios = st.text_input(
         "Total de usuários",
         value="",
@@ -190,12 +194,12 @@ if tipo == "Embedded":
     st.code(f"Topo de Funil: {topo_emb_fmt}")
     col1, col2, col3 = st.columns(3)
     col1.code(f"Contratações: {contratacoes_emb_fmt}")
-    col2.code("Premio de Venda: R$" + int_para_moeda(calcular_premio_venda(contratacoes_emb,p1, p2, p3, 4)))
-    col3.code("Premio de Venda 1 ano: R$" + int_para_moeda(calcular_premio_venda(contratacoes_emb,p1, p2, p3, 4)*12))
+    col2.code("Premio de Venda: R$" + int_para_moeda(calcular_premio_venda(contratacoes_emb,p1, p2, p3, 4,tipo_ticket)))
+    col3.code("Premio de Venda 1 ano: R$" + int_para_moeda(calcular_premio_venda(contratacoes_emb,p1, p2, p3, 4,tipo_ticket)*12))
     col1, col2, col3 = st.columns(3)
-    col1.code("Premio de Venda IA: R$" + int_para_moeda(round(calcular_premio_venda(contratacoes_emb,p1, p2, p3, 1))))
-    col2.code("Premio de Venda IU: R$" + int_para_moeda(round(calcular_premio_venda(contratacoes_emb,p1, p2, p3, 2))))
-    col3.code("Premio de Venda IP: R$" + int_para_moeda(round(calcular_premio_venda(contratacoes_emb,p1, p2, p3, 3))))
+    col1.code("Premio de Venda IA: R$" + int_para_moeda(round(calcular_premio_venda(contratacoes_emb,p1, p2, p3, 1,tipo_ticket))))
+    col2.code("Premio de Venda IU: R$" + int_para_moeda(round(calcular_premio_venda(contratacoes_emb,p1, p2, p3, 2,tipo_ticket))))
+    col3.code("Premio de Venda IP: R$" + int_para_moeda(round(calcular_premio_venda(contratacoes_emb,p1, p2, p3, 3,tipo_ticket))))
 if tipo == '':
     st.markdown("""
     <div style="padding: 16px; border-radius: 8px; margin-top: 16px; color: #fcfbff;">
